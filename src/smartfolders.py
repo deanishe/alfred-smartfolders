@@ -38,11 +38,11 @@ Options:
 MAX_RESULTS = 50
 HELPFILE = os.path.join(os.path.dirname(__file__), u'Help.html')
 
-logging.basicConfig(filename=os.path.join(alfred.work(volatile=True),
-                                          'smartfolders.log'),
-                    level=logging.DEBUG)
+# logging.basicConfig(filename=os.path.join(alfred.work(volatile=True),
+#                                           'smartfolders.log'),
+#                     level=logging.DEBUG)
 
-log = logging.getLogger(u'smartfolders')
+# log = logging.getLogger(u'smartfolders')
 
 
 def open_help_file():
@@ -100,12 +100,12 @@ def search_folder(folder, query, limit=MAX_RESULTS):
     Returns:
         list of alfred.Item instances
     """
-    log.debug(u'folder : {!r} query : {!r}'.format(folder, query))
+    # log.debug(u'folder : {!r} query : {!r}'.format(folder, query))
     results = []
 
     output = subprocess.check_output(['mdfind', '-s', folder]).decode('utf-8')
     files = [path.strip() for path in output.split('\n') if path.strip()]
-    log.debug(u'{} files in folder {}'.format(len(files), folder))
+    # log.debug(u'{} files in folder {}'.format(len(files), folder))
     for i, path in enumerate(files):
         name = os.path.basename(path)
         if query and not name.lower().startswith(query.lower()):
@@ -154,7 +154,7 @@ def search_folders(query=None):
 
 def main():
     args = docopt(__usage__, alfred.args())
-    log.debug(u'args : {}'.format(args))
+    # log.debug(u'args : {}'.format(args))
     if args.get(u'--helpfile'):
         open_help_file()
         return 0
@@ -168,7 +168,7 @@ def main():
             query = u''
         results = search_folder(folder, query)
     xml = alfred.xml(results, maxresults=MAX_RESULTS)
-    log.debug(u'Returning {} results to Alfred'.format(len(results)))
+    # log.debug(u'Returning {} results to Alfred'.format(len(results)))
     # log.debug('\n{}'.format(xml))
     alfred.write(xml)
     return 0

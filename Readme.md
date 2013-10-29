@@ -12,14 +12,14 @@ Quick access to your Smart Folders in [Alfred 2 ](http://www.alfredapp.com/).
 * Continue typing to filter the contents of the current folder.
 * `ENTER` will open a file/folder in its default app.
 * `⌘+ENTER` will reveal the item in the Finder.
-* Type **.sfhelp** to view the help file.
+* Type **smartfolders-help** to view the help file.
 
 
 ## Slightly more advanced usage ##
 
 You can also set up keywords to go directly to the contents of a specific Smart Folder.
 
-See the included help file for more details (keyword **.sfhelp** to view it).
+See the included help file for more details (keyword **smartfolders-help** to view it).
 
 ## Third-party software, copyright etc. ##
 

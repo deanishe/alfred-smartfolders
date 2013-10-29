@@ -170,7 +170,7 @@ python smartfolders.py -f TODO "{query}"</string>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>.sfhelp</string>
+				<string>smartfolders-help</string>
 				<key>subtext</key>
 				<string>Open the help file in your web browser</string>
 				<key>text</key>
@@ -189,7 +189,7 @@ python smartfolders.py -f TODO "{query}"</string>
 	<key>readme</key>
 	<string>Quick access to your Smart Folders (Saved Searches) in Alfred.
 
-Please see the included help (.sfhelp) for more information.</string>
+Please see the included help (keyword smartfolders-help) for more information.</string>
 	<key>uidata</key>
 	<dict>
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
