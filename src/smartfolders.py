@@ -9,7 +9,7 @@
 #
 
 """
-Search specific Smart Folder or all folders in ~/Library/Saved Searches
+Search one or all Smart Folders (Saved Searches)
 """
 
 from __future__ import print_function
