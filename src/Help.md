@@ -4,7 +4,7 @@ date: 2013-10-29
 
 # Smart Folders for Alfred Help #
 
-Browsing Smart Folders in Alfred 2
+Browsing your Saved Searches in Alfred 2
 
 ![](screenshot-1.png "Alfred Smart Folders")
 
@@ -17,6 +17,7 @@ Browsing Smart Folders in Alfred 2
 * `ENTER` will open a file/folder in its default app.
 * `⌘+ENTER` will reveal the item in the Finder.
 
+**Note**:
 
 ## Slightly more advanced usage ##
 
