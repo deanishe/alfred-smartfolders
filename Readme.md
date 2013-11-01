@@ -1,6 +1,6 @@
 # Smart Folders for Alfred #
 
-Quick access to your Smart Folders in [Alfred 2 ](http://www.alfredapp.com/).
+Quick access to your Smart Folders (Saved Searches) in [Alfred 2 ](http://www.alfredapp.com/).
 
 ![](img/screenshot-1.png "Alfred Smart Folders")
 
@@ -23,6 +23,6 @@ See the included help file for more details (keyword **smartfolders-help** to vi
 
 ## Third-party software, copyright etc. ##
 
-* All the code I wrote is public domain. Have at it.
-* [docopt](http://docopt.org/) is covered by the MIT licence.
+* All my code is covered by the [MIT licence](http://opensource.org/licenses/MIT).
+* [docopt](http://docopt.org/) is covered by the [MIT licence](http://opensource.org/licenses/MIT).
 * I don't know what licensing [alfred.py](https://github.com/nikipore/alfred-python) uses.

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #
-# Copyright © 2013 deanishe@deanishe.net. All rights reserved.
+# Copyright © 2013 deanishe@deanishe.net.
 #
-# Created on 2013-10-29
+# MIT Licence. See http://opensource.org/licenses/MIT
+#
+# Created on 2013-11-01
 #
 
 """

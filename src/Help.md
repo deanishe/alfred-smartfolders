@@ -10,7 +10,7 @@ Browsing Smart Folders in Alfred 2
 
 ## Usage ##
 
-* Type **.sf** to see a list of your Smart Folders.
+* Type **.sf** to see a list of your Smart Folders (Saved Searches).
 * Type **.sf [start of folder name]** to narrow the results.
 * `TAB` or `ENTER` on a Smart Folder to view its contents.
 * Continue typing to filter the contents of the current folder.
@@ -26,7 +26,7 @@ Enter the following as the script:
 
     python smartfolders.py -f TODO "{query}"
 
-to search a Smart Folder called "TODO".
+to search a Smart Folder called **TODO**.
 
 It should look something like this:
 
@@ -36,8 +36,8 @@ The above example is included in the workflow, but has no keyword.
 
 ## Third-party software, copyright etc. ##
 
-* All the code I wrote is public domain. Have at it.
-* [docopt](http://docopt.org/) is covered by the MIT licence.
+* All my code is covered by the [MIT licence](http://opensource.org/licenses/MIT).
+* [docopt](http://docopt.org/) is covered by the [MIT licence](http://opensource.org/licenses/MIT).
 * I don't know what licensing [alfred.py](https://github.com/nikipore/alfred-python) uses.
 
 ## More Info ##
