@@ -18,8 +18,6 @@ Browse your Saved Searches in Alfred 2.
 * `ENTER` will open a file/folder in its default app.
 * `⌘+ENTER` will reveal the item in the Finder.
 
-**Note**:
-
 ### Custom searches ###
 
 You can also set up keywords to go directly to the contents of a specific Smart Folder. To do this, add a script filter in the Workflow's configuration using the same settings as the default **.sf** one.
