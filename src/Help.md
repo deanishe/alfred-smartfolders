@@ -4,30 +4,31 @@ date: 2013-10-29
 
 # Smart Folders for Alfred Help #
 
-Browsing your Saved Searches in Alfred 2
+Browse your Saved Searches in Alfred 2.
 
 ![](screenshot-1.png "Alfred Smart Folders")
 
 ## Usage ##
 
 * Type **.sf** to see a list of your Smart Folders (Saved Searches).
-* Type **.sf [start of folder name]** to narrow the results.
-* `TAB` or `ENTER` on a Smart Folder to view its contents.
+* Type **.sf [part of folder name]** to narrow the results.
+* `ENTER` on a Smart Folder to open it in Finder.
+* `TAB` on a Smart Folder to view its contents.
 * Continue typing to filter the contents of the current folder.
 * `ENTER` will open a file/folder in its default app.
 * `⌘+ENTER` will reveal the item in the Finder.
 
 **Note**:
 
-## Slightly more advanced usage ##
+### Custom searches ###
 
 You can also set up keywords to go directly to the contents of a specific Smart Folder. To do this, add a script filter in the Workflow's configuration using the same settings as the default **.sf** one.
 
 Enter the following as the script:
 
-    python smartfolders.py -f TODO "{query}"
+    python smartfolders.py -f 'FOLDER_NAME' "{query}"
 
-to search a Smart Folder called **TODO**.
+where `FOLDER_NAME` is the name of the Saved Search whose contents you want to search.
 
 It should look something like this:
 

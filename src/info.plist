@@ -68,45 +68,41 @@
 	<array>
 		<dict>
 			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>keyword</key>
-				<string>.todo</string>
-				<key>runningsubtext</key>
-				<string>Loading your stuff ...</string>
-				<key>script</key>
-				<string># Use: python smartfolders.py -f NAME_OF_YOUR_SMART_FOLDER "{query}" to
-# directly search a specific Smart Folder.
-# You can use the name of *any* Smart Folder on your system.
-# You only need the name, not the full path
-
-python smartfolders.py -f TODO "{query}"</string>
-				<key>subtext</key>
-				<string>View Items Tagged TODO</string>
-				<key>title</key>
-				<string>TODOs</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
 			<dict/>
 			<key>type</key>
 			<string>alfred.workflow.action.openfile</string>
 			<key>uid</key>
 			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>runningsubtext</key>
+				<string>Loading your stuff ...</string>
+				<key>script</key>
+				<string># Use: python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "{query}" to
+# directly search a specific Smart Folder.
+# You can use the name of *any* Smart Folder on your system.
+# You only need the name, not the full path
+
+python smartfolders.py -f 'TODO' "{query}"</string>
+				<key>title</key>
+				<string>Example search of specific Saved Search</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
