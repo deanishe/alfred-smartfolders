@@ -1,6 +1,6 @@
 # Smart Folders for Alfred #
 
-Quick access to your Smart Folders (Saved Searches) in [Alfred 2 ](http://www.alfredapp.com/).
+Quick access to your Smart Folders (Saved Searches) in [Alfred 2](http://www.alfredapp.com/).
 
 ![](img/screenshot-1.png "Alfred Smart Folders")
 
@@ -14,8 +14,7 @@ Quick access to your Smart Folders (Saved Searches) in [Alfred 2 ](http://www.al
 * `⌘+ENTER` will reveal the item in the Finder.
 * Type **smartfolders-help** to view the help file.
 
-
-## Slightly more advanced usage ##
+## Custom searches ##
 
 You can also set up keywords to go directly to the contents of a specific Smart Folder.
 
