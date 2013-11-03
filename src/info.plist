@@ -83,6 +83,43 @@
 				<integer>1</integer>
 				<key>escaping</key>
 				<integer>127</integer>
+				<key>keyword</key>
+				<string>.sf</string>
+				<key>runningsubtext</key>
+				<string>Rummaging through your stuff …</string>
+				<key>script</key>
+				<string>python smartfolders.py "{query}"</string>
+				<key>subtext</key>
+				<string>Search for and Browse Smart Folders</string>
+				<key>title</key>
+				<string>Smart Folders</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.action.revealfile</string>
+			<key>uid</key>
+			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
 				<key>runningsubtext</key>
 				<string>Loading your stuff ...</string>
 				<key>script</key>
@@ -103,43 +140,6 @@ python smartfolders.py -f 'TODO' "{query}"</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
-			<key>uid</key>
-			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>keyword</key>
-				<string>.sf</string>
-				<key>runningsubtext</key>
-				<string>Rummaging through your stuff …</string>
-				<key>script</key>
-				<string>python smartfolders.py "{query}"</string>
-				<key>subtext</key>
-				<string>Search for and Browse Smart Folders</string>
-				<key>title</key>
-				<string>Smart Folders</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -206,12 +206,12 @@ Please see the included help (keyword smartfolders-help) for more information.</
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>ypos</key>
-			<real>10</real>
+			<real>130</real>
 		</dict>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<dict>
 			<key>ypos</key>
-			<real>130</real>
+			<real>10</real>
 		</dict>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
 		<dict>

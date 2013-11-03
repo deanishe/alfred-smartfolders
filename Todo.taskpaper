@@ -1,0 +1,7 @@
+
+Features:
+	- Implement search in as well as starts with @done (13-11-03 19:44)
+
+Possible improvements:
+	- Better separator than space? @done (13-11-03 20:04)
+	- Show no-match error if no results?
