@@ -8,23 +8,20 @@
 # Created on 2013-11-01
 #
 
-# TODO : figure out meaningful separator
-# TODO : implement search in as well as starts with
-
 """
-Search one or all Smart Folders (Saved Searches) in '~/Library/Saved Searches'
+Search Smart Folders (Saved Searches)
 """
 
 from __future__ import print_function
 
 import sys
 import os
-import logging
 import subprocess
 import plistlib
 
 import alfred
 from docopt import docopt
+from log import logger, LOGFILE
 
 __usage__ = u"""Search smart folders
 
@@ -32,23 +29,26 @@ Usage:
     smartfolders [-f <folder>|--folder=<folder>] [<query>]
     smartfolders (-h|--help)
     smartfolders --helpfile
+    smartfolders --dellog
+    smartfolders --openlog
 
 Options:
     -f, --folder=<folder>   Search contents of named folder
                             Specify the folder name, not the path
     -h, --help              Show this message
     --helpfile              Open the enclosed help file in your web browser
-
+    --dellog                Delete the debug log
+    --openlog               Open the debug log in Console
 """
 
 MAX_RESULTS = 50
 HELPFILE = os.path.join(os.path.dirname(__file__), u'Help.html')
+DELIMITER = u'⟩'
+# DELIMITER = u'⦊'
 
-logging.basicConfig(filename=os.path.join(os.path.dirname(__file__),
-                                          'debug.log'),
-                    level=logging.DEBUG)
 
-log = logging.getLogger(u'smartfolders')
+
+log = logger(u'smartfolders')
 
 
 def open_help_file():
@@ -62,21 +62,18 @@ def make_folder_items(folders):
         list of alfred.Item instances
     """
     items = []
-    for i, folder in enumerate(folders):
+    for folder in folders:
         folder, path = folder
         item = alfred.Item(
-            {'uid': alfred.uid(i),
+            {'uid': path,
              'arg': path,
              'valid': 'yes',
-             'autocomplete': folder + u' ',
-             # Hard to know what to do with smart folders.
-             # Most 'file' functions don't work on them,
-             # only 'Reveal in Finder' and that's about it.
+             'autocomplete': folder + u' {} '.format(DELIMITER),
              'type': 'file',
              # 'path': path
              },
             folder,
-            u'',
+            path,
             icon=('com.apple.finder.smart-folder',
                   {'type' : 'filetype'})
         )
@@ -91,7 +88,8 @@ def get_smart_folders():
         list of tuples (name, path)
     """
     results = []
-    output = subprocess.check_output([u'mdfind', u'kind:saved search']).decode(u'utf-8')
+    output = subprocess.check_output([u'mdfind',
+                                      u'kind:saved search']).decode(u'utf-8')
     paths = [path.strip() for path in output.split(u'\n') if path.strip()]
     for path in paths:
         name = os.path.splitext(os.path.basename(path))[0]
@@ -116,15 +114,39 @@ def folder_contents(path):
         log.debug(u'query : {}, locations : {}'.format(query, locations))
         command = [u'mdfind']
         for path in locations:
-            if not os.path.exists(path):
+            if path == u'kMDQueryScopeHome':
+                path = os.path.expanduser(u'~/')
+            elif path == u'kMDQueryScopeComputer':
+                continue
+            elif not os.path.exists(path):
                 continue
             command.extend([u'-onlyin', path])
         command.append(query)
     log.debug(u'command : {}'.format(command))
     output = subprocess.check_output(command).decode(u"utf-8")
     files = [path.strip() for path in output.split('\n') if path.strip()]
-    log.debug(u'{} files in folder {}'.format(len(files), path))
+    log.debug(u"{} files in folder '{}'".format(len(files), path))
     return files
+
+
+def filter_objects(objects, key, query=None, limit=0):
+    """Filter objects by comparing query with key(object)"""
+    if not query:  # return everything up to limit
+        if limit:
+            return objects[:limit]
+        return objects
+    # search
+    hits = []
+    items = [(key(obj), obj) for obj in objects]
+    for k, obj in items:
+        if k.startswith(query):
+            hits.append((0, obj))
+        elif query in k:
+            hits.append((1, obj))
+    hits.sort()
+    if limit and len(hits) > limit:
+        hits = hits[:limit]
+    return [t[1] for t in hits]
 
 
 def search_folder(folder, query, limit=MAX_RESULTS):
@@ -135,23 +157,21 @@ def search_folder(folder, query, limit=MAX_RESULTS):
     """
     log.debug(u'folder : {!r} query : {!r}'.format(folder, query))
     # query = query.lstrip(u'/')
-    query = query.strip()
+    query = query.strip().lower()
     files = []
-    results = []
+    hits = []
+    items = []
     for name, path in get_smart_folders():
         if name == folder:
             files = folder_contents(path)
             break
-    # output = subprocess.check_output(['mdfind', '-s', folder]).decode('utf-8')
-    # files = [path.strip() for path in output.split('\n') if path.strip()]
     log.debug(u'{} files in folder {}'.format(len(files), folder))
-    for i, path in enumerate(files):
-        name = os.path.basename(path)
-        if query and not name.lower().startswith(query.lower()):
-            continue
-
-        item = alfred.Item(
-                    {'uid': alfred.uid(u"%02d" % i),
+    files = [(os.path.basename(path), path) for path in files]
+    hits = filter_objects(files, lambda t: t[0].lower(), query, limit)
+    log.debug(u"{}/{} items match '{}'".format(len(hits), len(files), query))
+    for name, path in hits:
+        items.append(alfred.Item(
+                    {'uid': path,
                      'arg': path,
                      'valid': 'yes',
                      # 'autocomplete': path,
@@ -159,10 +179,8 @@ def search_folder(folder, query, limit=MAX_RESULTS):
                     name,
                     path,
                     icon=(path, {u'type' : u'fileicon'}))
-        results.append(item)
-        if len(results) == limit:
-            break
-    return results
+        )
+    return items
 
 
 def search_folders(query=None):
@@ -183,29 +201,44 @@ def search_folders(query=None):
                 results = search_folder(name, u'')
                 break
             elif query.startswith(name.lower()):  # search in folder
-                query = query[len(name):]
+                query = query[len(name):].strip(u' {}'.format(DELIMITER))
                 results = search_folder(name, query)
                 break
         if not results:  # found no matching folder; filter folders
-            results = make_folder_items([t for t in folders if
-                                        t[0].lower().startswith(query)])
+            # results = make_folder_items([t for t in folders if
+            #                             t[0].lower().startswith(query)])
+            results = make_folder_items(filter_objects(folders,
+                                        lambda t: t[0].lower(),
+                                        query))
     return results
 
 
 def main():
     args = docopt(__usage__, alfred.args())
     log.debug(u'args : {}'.format(args))
-    if args.get(u'--helpfile'):
+    if args.get(u'--dellog'):
+        if os.path.exists(LOGFILE):
+            os.unlink(LOGFILE)
+        return 0
+    elif args.get(u'--openlog'):
+        if os.path.exists(LOGFILE):
+            subprocess.check_call([u'open', LOGFILE])
+        else:
+            print(u'Logfile does not exist', file=sys.stderr)
+        return 0
+    elif args.get(u'--helpfile'):
         open_help_file()
         return 0
     query = args.get(u'<query>')
+    if query is None:
+        query = u''
+    else:
+        query = query.strip(u' {}'.format(DELIMITER))
     folder = args.get(u'--folder')
     results = []
     if folder is None:
         results = search_folders(query)
     else:
-        if query is None:  # show list of contents of folder
-            query = u''
         results = search_folder(folder, query)
     xml = alfred.xml(results, maxresults=MAX_RESULTS)
     log.debug(u'Returning {} results to Alfred'.format(len(results)))
