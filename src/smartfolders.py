@@ -69,7 +69,6 @@ def make_folder_items(folders):
              'arg': path,
              'valid': 'yes',
              'autocomplete': folder + u' {} '.format(DELIMITER),
-             'type': 'file',
              # 'path': path
              },
             folder,
