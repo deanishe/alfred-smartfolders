@@ -17,7 +17,7 @@ import os
 import alfred
 import logging
 
-LOGGING = True  # to log or not to log
+LOGGING = False  # to log or not to log
 
 LOGFILE = os.path.join(alfred.work(True), u'debug.log')
 

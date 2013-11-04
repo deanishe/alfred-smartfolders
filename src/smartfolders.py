@@ -87,12 +87,15 @@ def get_smart_folders():
         list of tuples (name, path)
     """
     results = []
+    log.debug(u'Querying mds ...')
     output = subprocess.check_output([u'mdfind',
-                                      u'kind:saved search']).decode(u'utf-8')
+            u'kMDItemContentType == com.apple.finder.smart-folder']).decode(u'utf-8')
     paths = [path.strip() for path in output.split(u'\n') if path.strip()]
     for path in paths:
         name = os.path.splitext(os.path.basename(path))[0]
         results.append((name, path))
+        log.debug(u'smartfolder : {}'.format(path))
+    log.debug(u'{} smartfolders found'.format(len(results)))
     return results
 
 
@@ -102,6 +105,7 @@ def folder_contents(path):
     Returns:
         list of paths
     """
+    log.debug(u'Retrieving contents of smartfolder : {} ...'.format(path))
     if path.startswith(os.path.expanduser(u'~/Library/Saved Searches')):
         name = os.path.splitext(os.path.basename(path))[0]
         command = [u'mdfind', u'-s', name]
@@ -130,8 +134,9 @@ def folder_contents(path):
 
 def filter_objects(objects, key, query=None, limit=0):
     """Filter objects by comparing query with key(object)"""
+    log.debug(u'Filter: {} objects, query {!r}'.format(len(objects), query))
     if not query:  # return everything up to limit
-        if limit:
+        if limit > len(objects):
             return objects[:limit]
         return objects
     # search
