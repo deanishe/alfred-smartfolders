@@ -21,7 +21,7 @@ import plistlib
 
 import alfred
 from docopt import docopt
-from log import logger, LOGFILE
+from log import logger, LOG_CONFIG
 
 __usage__ = u"""Search smart folders
 
@@ -31,6 +31,8 @@ Usage:
     smartfolders --helpfile
     smartfolders --dellog
     smartfolders --openlog
+    smartfolders --log
+    smartfolders --nolog
 
 Options:
     -f, --folder=<folder>   Search contents of named folder
@@ -39,6 +41,8 @@ Options:
     --helpfile              Open the enclosed help file in your web browser
     --dellog                Delete the debug log
     --openlog               Open the debug log in Console
+    --log                   Turn logging on
+    --nolog                 Turn logging off
 """
 
 MAX_RESULTS = 50
@@ -173,7 +177,12 @@ def search_folder(folder, query, limit=MAX_RESULTS):
     files = [(os.path.basename(path), path) for path in files]
     hits = filter_objects(files, lambda t: t[0].lower(), query, limit)
     log.debug(u"{}/{} items match '{}'".format(len(hits), len(files), query))
+    if len(hits) > MAX_RESULTS:
+        hits = hits[:MAX_RESULTS]
+        log.debug(u'Trimmed result count to MAX_RESULTS ({})'.format(
+                  MAX_RESULTS))
     for name, path in hits:
+        log.debug(u'{!r}'.format(path))
         items.append(alfred.Item(
                     {'uid': path,
                      'arg': path,
@@ -221,17 +230,25 @@ def main():
     args = docopt(__usage__, alfred.args())
     log.debug(u'args : {}'.format(args))
     if args.get(u'--dellog'):
-        if os.path.exists(LOGFILE):
-            os.unlink(LOGFILE)
+        if os.path.exists(LOG_CONFIG.log_path):
+            os.unlink(LOG_CONFIG.log_path)
         return 0
     elif args.get(u'--openlog'):
-        if os.path.exists(LOGFILE):
-            subprocess.check_call([u'open', LOGFILE])
+        if os.path.exists(LOG_CONFIG.log_path):
+            subprocess.check_call([u'open', LOG_CONFIG.log_path])
         else:
             print(u'Logfile does not exist', file=sys.stderr)
         return 0
     elif args.get(u'--helpfile'):
         open_help_file()
+        return 0
+    elif args.get(u'--log'):
+        LOG_CONFIG.logging = True
+        print(u'Turned logging on', file=sys.stderr)
+        return 0
+    elif args.get(u'--nolog'):
+        LOG_CONFIG.logging = False
+        print(u'Turned logging off', file=sys.stderr)
         return 0
     query = args.get(u'<query>')
     if query is None:
@@ -244,9 +261,9 @@ def main():
         results = search_folders(query)
     else:
         results = search_folder(folder, query)
-    xml = alfred.xml(results, maxresults=MAX_RESULTS)
-    log.debug(u'Returning {} results to Alfred'.format(len(results)))
-    # log.debug('\n{}'.format(xml))
+    xml = alfred.xml(results, indent=True)
+    log.debug(u'Returning {} result(s) to Alfred'.format(len(results)))
+    log.debug('XML output : \n{}'.format(xml))
     alfred.write(xml)
     return 0
 
