@@ -22,6 +22,22 @@ preferences = plistlib.readPlist('info.plist')
 bundleid = preferences['bundleid']
 
 
+def _indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            _indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
+
+
 class Item(object):
     @classmethod
     def unicode(cls, value):
@@ -89,10 +105,12 @@ def write(text):
     sys.stdout.write(text)
 
 
-def xml(items, maxresults=_MAX_RESULTS_DEFAULT):
+def xml(items, maxresults=_MAX_RESULTS_DEFAULT, indent=False):
     root = Element('items')
     for item in itertools.islice(items, maxresults):
         root.append(item.xml())
+    if indent:
+        _indent(root)
     return tostring(root, encoding='utf-8')
 
 
