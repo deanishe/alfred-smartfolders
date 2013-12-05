@@ -80,7 +80,7 @@ def config():
 
 
 def decode(s):
-    return unicodedata.normalize('NFC', s.decode('utf-8'))
+    return unicodedata.normalize('NFD', s.decode('utf-8'))
 
 
 def uid(uid):

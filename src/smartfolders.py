@@ -259,7 +259,7 @@ def main():
     if query is None:
         query = u''
     else:
-        query = normalise(query.strip(u' {}'.format(DELIMITER)))
+        query = query.strip(u' {}'.format(DELIMITER))
     folder = args.get(u'--folder')
     results = []
     if folder is None:
