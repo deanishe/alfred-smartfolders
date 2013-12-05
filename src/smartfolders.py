@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # encoding: utf-8
 #
 # Copyright © 2013 deanishe@deanishe.net.
@@ -18,6 +18,7 @@ import sys
 import os
 import subprocess
 import plistlib
+from unicodedata import normalize as _normalize
 
 import alfred
 from docopt import docopt
@@ -53,6 +54,10 @@ DELIMITER = u'⟩'
 
 
 log = logger(u'smartfolders')
+
+
+def normalise(u):
+    return _normalize('NFD', u)
 
 
 def open_help_file():
@@ -94,11 +99,11 @@ def get_smart_folders():
     log.debug(u'Querying mds ...')
     output = subprocess.check_output([u'mdfind',
             u'kMDItemContentType == com.apple.finder.smart-folder']).decode(u'utf-8')
-    paths = [path.strip() for path in output.split(u'\n') if path.strip()]
+    paths = [normalise(path.strip()) for path in output.split(u'\n') if path.strip()]
     for path in paths:
         name = os.path.splitext(os.path.basename(path))[0]
         results.append((name, path))
-        log.debug(u'smartfolder : {}'.format(path))
+        log.debug(u'smartfolder : {!r}'.format(path))
     log.debug(u'{} smartfolders found'.format(len(results)))
     return results
 
@@ -254,7 +259,7 @@ def main():
     if query is None:
         query = u''
     else:
-        query = query.strip(u' {}'.format(DELIMITER))
+        query = normalise(query.strip(u' {}'.format(DELIMITER)))
     folder = args.get(u'--folder')
     results = []
     if folder is None:
@@ -263,7 +268,7 @@ def main():
         results = search_folder(folder, query)
     xml = alfred.xml(results, indent=True)
     log.debug(u'Returning {} result(s) to Alfred'.format(len(results)))
-    log.debug('XML output : \n{}'.format(xml))
+    log.debug('XML output : \n{!r}'.format(xml))
     alfred.write(xml)
     return 0
 
