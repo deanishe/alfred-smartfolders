@@ -136,7 +136,7 @@ def folder_contents(path):
         command.append(query)
     log.debug(u'command : {}'.format(command))
     output = subprocess.check_output(command).decode(u"utf-8")
-    files = [path.strip() for path in output.split('\n') if path.strip()]
+    files = [normalise(path.strip()) for path in output.split('\n') if path.strip()]
     log.debug(u"{} files in folder '{}'".format(len(files), path))
     return files
 
