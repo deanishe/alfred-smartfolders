@@ -49,8 +49,8 @@ Options:
 MAX_RESULTS = 50
 HELPFILE = os.path.join(os.path.dirname(__file__), u'Help.html')
 DELIMITER = u'⟩'
+# DELIMITER = u'/'
 # DELIMITER = u'⦊'
-
 
 
 log = logger(u'smartfolders')
@@ -83,7 +83,7 @@ def make_folder_items(folders):
             folder,
             path,
             icon=('com.apple.finder.smart-folder',
-                  {'type' : 'filetype'})
+                  {'type': 'filetype'})
         )
         items.append(item)
     return items
@@ -97,9 +97,12 @@ def get_smart_folders():
     """
     results = []
     log.debug(u'Querying mds ...')
-    output = subprocess.check_output([u'mdfind',
-            u'kMDItemContentType == com.apple.finder.smart-folder']).decode(u'utf-8')
-    paths = [normalise(path.strip()) for path in output.split(u'\n') if path.strip()]
+    output = subprocess.check_output([
+        u'mdfind',
+        u'kMDItemContentType == com.apple.finder.smart-folder']).decode(
+            u'utf-8')
+    paths = [normalise(path.strip()) for path in
+             output.split(u'\n') if path.strip()]
     for path in paths:
         name = os.path.splitext(os.path.basename(path))[0]
         results.append((name, path))
@@ -136,7 +139,8 @@ def folder_contents(path):
         command.append(query)
     log.debug(u'command : {}'.format(command))
     output = subprocess.check_output(command).decode(u"utf-8")
-    files = [normalise(path.strip()) for path in output.split('\n') if path.strip()]
+    files = [normalise(path.strip()) for path in
+             output.split('\n') if path.strip()]
     log.debug(u"{} files in folder '{}'".format(len(files), path))
     return files
 
@@ -189,15 +193,14 @@ def search_folder(folder, query, limit=MAX_RESULTS):
     for name, path in hits:
         log.debug(u'{!r}'.format(path))
         items.append(alfred.Item(
-                    {'uid': path,
-                     'arg': path,
-                     'valid': 'yes',
-                     # 'autocomplete': path,
-                     'type': 'file'},
-                    name,
-                    path,
-                    icon=(path, {u'type' : u'fileicon'}))
-        )
+                     {'uid': path,
+                      'arg': path,
+                      'valid': 'yes',
+                      # 'autocomplete': path,
+                      'type': 'file'},
+                     name,
+                     path,
+                     icon=(path, {u'type': u'fileicon'})))
     return items
 
 
