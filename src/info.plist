@@ -10,38 +10,38 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
 				<key>modifiers</key>
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string>Reveal in Finder</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 		</array>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
 				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
 				<key>modifiers</key>
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string>Reveal in Finder</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
 			</dict>
 		</array>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
@@ -68,11 +68,95 @@
 	<array>
 		<dict>
 			<key>config</key>
-			<dict/>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>smartfolders</string>
+				<key>runningsubtext</key>
+				<string>Loading Your Custom Smart Folders…</string>
+				<key>script</key>
+				<string>python smartfolders.py --config "{query}"</string>
+				<key>subtext</key>
+				<string>View/edit your custom keywords for Smart Folders</string>
+				<key>title</key>
+				<string>Custom Smart Folder Keywords</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<string>1D4776FB-3306-4255-882B-BF69AD95F853</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<false/>
+				<key>filetypes</key>
+				<array>
+					<string>com.apple.finder.smart-folder</string>
+				</array>
+				<key>name</key>
+				<string>Set Keyword For Smart Folder</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>69F53DA5-6878-4653-8329-D55425DEE150</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python smartfolders.py --helpfile</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4E7199BF-6D20-4817-A7DC-675FDE745E2C</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>.sfhelp</string>
+				<key>subtext</key>
+				<string>Open the help file in your web browser</string>
+				<key>text</key>
+				<string>View Smart Folders Help</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.action.revealfile</string>
+			<key>uid</key>
+			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -82,7 +166,7 @@
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
-				<integer>127</integer>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>.sf</string>
 				<key>runningsubtext</key>
@@ -106,10 +190,12 @@
 			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict/>
 			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
+			<string>alfred.workflow.action.openfile</string>
 			<key>uid</key>
-			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
+			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -143,44 +229,6 @@ python smartfolders.py -f 'TODO' "{query}"</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>script</key>
-				<string>python smartfolders.py --helpfile</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>4E7199BF-6D20-4817-A7DC-675FDE745E2C</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>smartfolders-help</string>
-				<key>subtext</key>
-				<string>Open the help file in your web browser</string>
-				<key>text</key>
-				<string>View Smart Folders Help</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>Quick access to your Smart Folders (Saved Searches) in Alfred.
@@ -188,35 +236,45 @@ python smartfolders.py -f 'TODO' "{query}"</string>
 Please see the included help (keyword smartfolders-help) for more information.</string>
 	<key>uidata</key>
 	<dict>
+		<key>1D4776FB-3306-4255-882B-BF69AD95F853</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
 		<dict>
 			<key>ypos</key>
-			<real>130</real>
+			<real>250</real>
 		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>ypos</key>
-			<real>10</real>
+			<real>370</real>
 		</dict>
 		<key>4E7199BF-6D20-4817-A7DC-675FDE745E2C</key>
 		<dict>
 			<key>ypos</key>
-			<real>260</real>
-		</dict>
-		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
-		<dict>
-			<key>ypos</key>
 			<real>130</real>
 		</dict>
-		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
+		<key>69F53DA5-6878-4653-8329-D55425DEE150</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
+		</dict>
+		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
 		<dict>
 			<key>ypos</key>
-			<real>260</real>
+			<real>130</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
