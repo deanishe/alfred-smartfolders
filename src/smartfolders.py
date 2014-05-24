@@ -122,6 +122,7 @@ class SmartFolders(object):
                 return self._terminate_with_error(
                     'Unknown folder',
                     'Check your configuration with `smartfolders`')
+            folder = folder['path']
             return self.do_search_in_folder(folder)
 
         return self.do_search_folders()
@@ -186,7 +187,10 @@ class SmartFolders(object):
         files = []
         folder_path = None
         for name, path in self.folders:
-            if name == folder:
+            if path == folder:
+                folder_path = path
+                break
+            elif name == folder:
                 folder_path = path
                 break
 
@@ -319,7 +323,8 @@ class SmartFolders(object):
                 params = plist['RawQueryDict']
                 query = params['RawQuery']
                 locations = params['SearchScopes']
-                log.debug('query : {}, locations : {}'.format(query, locations))
+                log.debug('query : {}, locations : {}'.format(query,
+                                                              locations))
                 command = ['mdfind']
                 for path in locations:
                     if path == 'kMDQueryScopeHome':
