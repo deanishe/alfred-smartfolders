@@ -22,8 +22,8 @@ import hashlib
 import plistlib
 from time import time
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),
-                'alfred-workflow-1.4.zip'))
+# sys.path.insert(0, os.path.join(os.path.dirname(__file__),
+#                 'alfred-workflow-1.4.zip'))
 
 from workflow import (Workflow, ICON_INFO, ICON_WARNING, ICON_ERROR,
                       ICON_SETTINGS)
@@ -145,7 +145,8 @@ class SmartFolders(object):
             self.query = query
             return self.do_search_in_folder(folder)
         elif query:
-            folders = self.wf.filter(query, self.folders, key=lambda t: t[0])
+            folders = self.wf.filter(query, self.folders, key=lambda t: t[0],
+                                     min_score=30)
         else:
             folders = self.folders
 
