@@ -17,18 +17,14 @@ from __future__ import print_function, unicode_literals
 import sys
 import os
 import subprocess
-import functools
-import hashlib
-import plistlib
 from time import time
 
-# sys.path.insert(0, os.path.join(os.path.dirname(__file__),
-#                 'alfred-workflow-1.4.zip'))
+from docopt import docopt
 
 from workflow import (Workflow, ICON_INFO, ICON_WARNING, ICON_ERROR,
                       ICON_SETTINGS)
-
-from docopt import docopt
+from workflow.background import is_running, run_in_background
+from cache import cache_key
 
 
 __usage__ = u"""\
@@ -55,6 +51,8 @@ HELPFILE = os.path.join(os.path.dirname(__file__), 'Help.html')
 DELIMITER = '⟩'
 # DELIMITER = '/'
 # DELIMITER = '⦊'
+CACHE_AGE_FOLDERS = 20  # seconds
+CACHE_AGE_CONTENTS = 10  # seconds
 
 # Placeholder, replaced on run
 log = None
@@ -83,6 +81,8 @@ class Backup(Exception):
 
 
 class SmartFolders(object):
+    """
+    """
 
     def __init__(self):
 
@@ -112,9 +112,21 @@ class SmartFolders(object):
         # Was a configured folder passed?
         folder_number = args.get('--folder')
 
-        self.folders = self.wf.cached_data('folders', self._get_smart_folders,
-                                           max_age=20)
+        # Get list of Smart Folders. Update in background if necessary.
+        self.folders = self.wf.cached_data('folders', max_age=0)
+        if self.folders is None:
+            self.folders = []
+        cache_age = self.wf.cached_data_age('folders')
+        if cache_age == 0 or cache_age > CACHE_AGE_FOLDERS:
+            log.debug('Updating list of Smart Folders in background...')
+            run_in_background('folders',
+                              ['/usr/bin/python',
+                               self.wf.workflowfile('cache.py')])
+        if is_running('folders'):
+            self.wf.add_item('Updating list of Smart Folders…',
+                             icon=ICON_INFO)
 
+        # Has a specific folder been specified?
         if folder_number:
             folder = self.wf.settings.get('folders', {}).get(folder_number)
 
@@ -199,15 +211,33 @@ class SmartFolders(object):
                 "Unknown folder '{}'".format(folder),
                 'Check your configuration with `smartfolders`')
 
-        files = self._folder_contents(folder_path)
+        # Get contents of folder; update if necessary
+        key = cache_key(folder_path)
+        files = self.wf.cached_data(key, max_age=0)
+        if files is None:
+            files = []
+        cache_age = self.wf.cached_data_age(key)
+        if cache_age == 0 or cache_age > CACHE_AGE_CONTENTS:
+            run_in_background(key,
+                              ['/usr/bin/python',
+                               self.wf.workflowfile('cache.py'),
+                               '--folder', folder_path])
+        if is_running(key):
+            self.wf.add_item('Updating contents of Smart Folder…',
+                             icon=ICON_INFO)
+
         if self.query:
-            results = []
-            for path, score, rule in self.wf.filter(self.query, files,
-                                                    key=os.path.basename,
-                                                    include_score=True):
-                log.debug('[{}/{}] {!r}'.format(score, rule, path))
-                results.append(path)
-            files = results
+            files = self.wf.filter(self.query, files,
+                                   key=os.path.basename,
+                                   min_score=10)
+            # results = []
+            # for path, score, rule in self.wf.filter(self.query, files,
+            #                                         key=os.path.basename,
+            #                                         include_score=True,
+            #                                         min_score=10):
+            #     log.debug('[{}/{}] {!r}'.format(score, rule, path))
+            #     results.append(path)
+            # files = results
 
         if not files:
             if not self.query:
@@ -239,7 +269,7 @@ class SmartFolders(object):
         if not folders:
             self._add_message('No Smart Folders assigned custom keywords',
                               ("Use '{}' and right-arrow on a Smart Folder "
-                              'to assign a keyword').format(self.keyword),
+                               'to assign a keyword').format(self.keyword),
                               icon=ICON_WARNING)
         for key, data in folders.items():
             subtitle = data['path'].replace(os.getenv('HOME'), '~')
@@ -283,73 +313,6 @@ class SmartFolders(object):
         log.debug('folder : {!r}  query : {!r}'.format(folder, query))
         return (folder, query)
 
-    def _get_smart_folders(self):
-        """Return list of all Smart Folders on system
-
-        Returns:
-            list of tuples (name, path)
-        """
-        results = []
-        log.debug('Querying mds ...')
-        output = subprocess.check_output([
-            'mdfind',
-            'kMDItemContentType == com.apple.finder.smart-folder'])
-        paths = [p.strip() for p in
-                 self.wf.decode(output).split('\n') if p.strip()]
-        for path in paths:
-            name = os.path.splitext(os.path.basename(path))[0]
-            results.append((name, path))
-            log.debug('smartfolder {!r} @ {!r}'.format(name, path))
-        results.sort()
-        log.debug('{} smartfolders found'.format(len(results)))
-        return results
-
-    def _folder_contents(self, path):
-        """Return files in smart folder at path
-
-        Returns:
-            list of paths
-        """
-        log.debug('Retrieving contents of smartfolder : {} ...'.format(path))
-
-        def _get_contents(path):
-            """Return list of all paths in Smart Folder at ``path``"""
-            if path.startswith(os.path.expanduser('~/Library/Saved Searches')):
-                name = os.path.splitext(os.path.basename(path))[0]
-                command = ['mdfind', '-s', name]
-
-            else:  # parse the Saved Search and run the query
-                plist = plistlib.readPlist(path)
-                params = plist['RawQueryDict']
-                query = params['RawQuery']
-                locations = params['SearchScopes']
-                log.debug('query : {}, locations : {}'.format(query,
-                                                              locations))
-                command = ['mdfind']
-                for path in locations:
-                    if path == 'kMDQueryScopeHome':
-                        path = os.path.expanduser('~/')
-                    elif path == 'kMDQueryScopeComputer':
-                        continue
-                    elif not os.path.exists(path):
-                        continue
-                    command.extend(['-onlyin', path])
-                command.append(query)
-
-            log.debug('command : {}'.format(command))
-            output = self.wf.decode(subprocess.check_output(command))
-
-            files = [p.strip() for p in output.split('\n') if p.strip()]
-            log.debug(u"{} files in folder '{}'".format(len(files), path))
-            return files
-
-        key = 'folder-contents-{}'.format(
-            hashlib.md5(path.encode('utf-8')).hexdigest())
-
-        return self.wf.cached_data(key,
-                                   functools.partial(_get_contents, path),
-                                   max_age=10)
-
 
 if __name__ == '__main__':
     start = time()
@@ -358,5 +321,4 @@ if __name__ == '__main__':
     sf = SmartFolders()
     retcode = wf.run(sf.run)
     log.debug('Finished in {:0.4f} seconds'.format(time() - start))
-    log.debug('-' * 60)
     sys.exit(retcode)
