@@ -116,8 +116,9 @@ class SmartFolders(object):
         self.folders = self.wf.cached_data('folders', max_age=0)
         if self.folders is None:
             self.folders = []
-        cache_age = self.wf.cached_data_age('folders')
-        if cache_age == 0 or cache_age > CACHE_AGE_FOLDERS:
+
+        # Update folder list if it's old
+        if not self.wf.cached_data_fresh('folders', CACHE_AGE_FOLDERS):
             log.debug('Updating list of Smart Folders in background...')
             run_in_background('folders',
                               ['/usr/bin/python',
@@ -155,13 +156,14 @@ class SmartFolders(object):
         except Backup:
             return run_alfred('{} '.format(self.keyword))
 
-        if folder:
+        if folder:  # search within folder
             self.query = query
             return self.do_search_in_folder(folder)
-        elif query:
+
+        elif query:  # filter folder list
             folders = self.wf.filter(query, self.folders, key=lambda t: t[0],
                                      min_score=30)
-        else:
+        else:  # show all folders
             folders = self.folders
 
         # Show results
@@ -217,8 +219,8 @@ class SmartFolders(object):
         files = self.wf.cached_data(key, max_age=0)
         if files is None:
             files = []
-        cache_age = self.wf.cached_data_age(key)
-        if cache_age == 0 or cache_age > CACHE_AGE_CONTENTS:
+
+        if not self.wf.cached_data_fresh(key, CACHE_AGE_CONTENTS):
             run_in_background(key,
                               ['/usr/bin/python',
                                self.wf.workflowfile('cache.py'),
@@ -266,12 +268,15 @@ class SmartFolders(object):
 
     def do_configure_folders(self):
         """Show list of Smart Folders with custom keywords"""
+
         folders = self.wf.settings.get('folders')
+
         if not folders:
             self._add_message('No Smart Folders assigned custom keywords',
                               ("Use '{}' and right-arrow on a Smart Folder "
                                'to assign a keyword').format(self.keyword),
                               icon=ICON_WARNING)
+
         for key, data in folders.items():
             subtitle = data['path'].replace(os.getenv('HOME'), '~')
             icon = data.get('icon', ICON_SETTINGS)
@@ -279,6 +284,7 @@ class SmartFolders(object):
                              subtitle,
                              arg=data['path'],
                              icon=icon)
+
         self.wf.send_feedback()
 
     def _add_message(self, title, subtitle='', icon=ICON_INFO):
@@ -304,9 +310,11 @@ class SmartFolders(object):
             raise Backup()
 
         index = query.find(DELIMITER)
+
         if index > -1:
             folder = query[:index].strip()
             query = query[index+1:].strip()
+
         else:
             folder = None
             query = query.strip()
