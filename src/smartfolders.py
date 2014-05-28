@@ -23,7 +23,7 @@ from docopt import docopt
 
 from workflow import (Workflow, ICON_INFO, ICON_WARNING, ICON_ERROR,
                       ICON_SETTINGS)
-from workflow.background import is_running, run_in_background
+from workflow.background import run_in_background
 from cache import cache_key
 
 
