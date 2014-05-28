@@ -122,9 +122,10 @@ class SmartFolders(object):
             run_in_background('folders',
                               ['/usr/bin/python',
                                self.wf.workflowfile('cache.py')])
-        if is_running('folders'):
-            self.wf.add_item('Updating list of Smart Folders…',
-                             icon=ICON_INFO)
+
+        # if is_running('folders'):
+        #     self.wf.add_item('Updating list of Smart Folders…',
+        #                      icon=ICON_INFO)
 
         # Has a specific folder been specified?
         if folder_number:
@@ -222,9 +223,9 @@ class SmartFolders(object):
                               ['/usr/bin/python',
                                self.wf.workflowfile('cache.py'),
                                '--folder', folder_path])
-        if is_running(key):
-            self.wf.add_item('Updating contents of Smart Folder…',
-                             icon=ICON_INFO)
+        # if is_running(key):
+        #     self.wf.add_item('Updating contents of Smart Folder…',
+        #                      icon=ICON_INFO)
 
         if self.query:
             files = self.wf.filter(self.query, files,
