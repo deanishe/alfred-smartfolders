@@ -8,9 +8,7 @@
 # Created on 2014-05-25
 #
 
-"""
-Search Smart Folders
-"""
+"""Search Smart Folders."""
 
 from __future__ import print_function, unicode_literals
 
@@ -42,17 +40,20 @@ log = None
 
 
 def cache_key(folder_path):
-    """Return cache key for `folder_path`"""
+    """Return cache key for `folder_path`."""
     return 'folder-contents-{}'.format(hashlib.md5(
         folder_path.encode('utf-8')).hexdigest())
 
 
 class Cache(object):
+    """Cache of all smart folders or their contents."""
 
     def __init__(self):
+        """Create new `Cache`."""
         self.wf = None
 
     def run(self, wf):
+        """Run Cache."""
         self.wf = wf
         args = docopt(__usage__, wf.args)
         folder_path = args.get('--folder')
@@ -65,7 +66,7 @@ class Cache(object):
             wf.cache_data('folders', self.smart_folders())
 
     def folder_contents(self, folder_path):
-        """Return `list` of files in Smart Folder at `folder_path`"""
+        """Return `list` of files in Smart Folder at `folder_path`."""
         if folder_path.startswith(
                 os.path.expanduser('~/Library/Saved Searches')):
             name = os.path.splitext(os.path.basename(folder_path))[0]
@@ -97,7 +98,7 @@ class Cache(object):
         return files
 
     def smart_folders(self):
-        """Return list of all Smart Folders on system
+        """Return list of all Smart Folders on system.
 
         Returns:
             list of tuples (name, path)

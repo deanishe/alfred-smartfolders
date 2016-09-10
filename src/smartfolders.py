@@ -8,21 +8,18 @@
 # Created on 2013-11-01
 #
 
-"""
-Search Smart Folders (Saved Searches)
-"""
+"""Search Smart Folders (Saved Searches)."""
 
 from __future__ import print_function, unicode_literals
 
 import sys
 import os
 import subprocess
-from time import time
 
 from docopt import docopt
 
 from workflow import (Workflow, ICON_INFO, ICON_WARNING, ICON_ERROR,
-                      ICON_SETTINGS)
+                      ICON_SETTINGS, ICON_SYNC)
 from workflow.background import run_in_background
 from cache import cache_key
 
@@ -57,42 +54,44 @@ CACHE_AGE_CONTENTS = 10  # seconds
 # Placeholder, replaced on run
 log = None
 
-ALFRED_SCRIPT = 'tell application "Alfred 2" to search "{}"'
+ALFRED_SCRIPT = 'tell application "Alfred {}" to search "{}"'
 
 
 def _applescriptify(text):
-    """Replace double quotes in text"""
+    """Replace double quotes in text."""
     return text.replace('"', '" + quote + "')
 
 
 def run_alfred(query):
-    """Run Alfred with ``query`` via AppleScript"""
-    script = ALFRED_SCRIPT.format(_applescriptify(query))
+    """Run Alfred with ``query`` via AppleScript."""
+    version = '2'
+    if wf.alfred_version and wf.alfred_version.major == 3:
+        version = '3'
+    script = ALFRED_SCRIPT.format(version, _applescriptify(query))
     log.debug('calling Alfred with : {!r}'.format(script))
     return subprocess.call(['osascript', '-e', script])
 
 
 class Backup(Exception):
-    """
-    Raised when query ends with DELIMITER to signal workflow to back up
-    one level, i.e. out of a folder.
+    """Raised when query ends with DELIMITER.
+
+    Signals workflow to back up one level, i.e. out of a folder.
 
     """
 
 
 class SmartFolders(object):
-    """
-    """
+    """Workflow controller."""
 
     def __init__(self):
-
+        """Create new `SmartFolders` object."""
         self.wf = None
         self.query = None
         self.folders = []
         self.keyword = DEFAULT_KEYWORD
 
     def run(self, wf):
-
+        """Run workflow."""
         self.wf = wf
         self.keyword = self.wf.settings.get('keyword', DEFAULT_KEYWORD)
         args = docopt(__usage__, self.wf.args)
@@ -142,15 +141,13 @@ class SmartFolders(object):
         return self.do_search_folders()
 
     def do_open_help_file(self):
-        """Open the help file in the user's default browser"""
-
+        """Open the help file in the user's default browser."""
         log.debug('Opening help file...')
         subprocess.call(['open', HELPFILE])
         return 0
 
     def do_search_folders(self):
-        """List/search all Smart Folders and return results to Alfred"""
-
+        """List/search all Smart Folders and return results to Alfred."""
         try:
             folder, query = self._parse_query(self.query)
         except Backup:
@@ -189,15 +186,14 @@ class SmartFolders(object):
         self.wf.send_feedback()
 
     def do_search_in_folder(self, folder):
-        """
-        List/search contents of a specific Smart Folder and return
-        results to Alfred
+        """List/search contents of a specific Smart Folder.
+
+        Sends results to Alfred.
 
         :param folder: name or path of Smart Folder
         :type folder: ``unicode``
 
         """
-
         log.debug('Searching folder {!r} for {!r}'.format(folder, self.query))
         files = []
         folder_path = None
@@ -267,9 +263,15 @@ class SmartFolders(object):
         self.wf.send_feedback()
 
     def do_configure_folders(self):
-        """Show list of Smart Folders with custom keywords"""
-
+        """Show list of Smart Folders with custom keywords."""
         folders = self.wf.settings.get('folders')
+
+        if wf.update_available:
+            self.wf_add_item('A new version of Smart Folders is available',
+                             '↩ or ⇥ to upgrade',
+                             autocomplete='workflow:update',
+                             valid=False,
+                             icon=ICON_SYNC)
 
         if not folders:
             self._add_message('No Smart Folders assigned custom keywords',
@@ -288,21 +290,19 @@ class SmartFolders(object):
         self.wf.send_feedback()
 
     def _add_message(self, title, subtitle='', icon=ICON_INFO):
-        """Add a message to the results returned to Alfred"""
-
+        """Add a message to the results returned to Alfred."""
         self.wf.add_item(title, subtitle, icon=icon)
 
     def _terminate_with_error(self, title, subtitle=''):
-        """Show an error message and send results to Alfred"""
-
+        """Show an error message and send results to Alfred."""
         self._add_message(title, subtitle, ICON_ERROR)
         self.wf.send_feedback()
         return 1
 
     def _parse_query(self, query):
-        """Split query on DELIMITER and return `(folder, query)`
+        """Split query on DELIMITER and return `(folder, query)`.
 
-        either ``folder`` or ``query`` may be ``None``
+        Either `folder` or `query` may be `None`.
 
         """
         if query.endswith(DELIMITER):
@@ -324,10 +324,8 @@ class SmartFolders(object):
 
 
 if __name__ == '__main__':
-    start = time()
-    wf = Workflow()
+    wf = Workflow(
+        update_settings={'github_slug': 'deanishe/alfred-smartfolders'})
     log = wf.logger
     sf = SmartFolders()
-    retcode = wf.run(sf.run)
-    log.debug('Finished in {:0.4f} seconds'.format(time() - start))
-    sys.exit(retcode)
+    sys.exit(wf.run(sf.run))
