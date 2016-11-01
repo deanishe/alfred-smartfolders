@@ -1,7 +1,7 @@
 
 # Smart Folders for Alfred #
 
-Quick access to your Smart Folders (Saved Searches) in [Alfred](http://www.alfredapp.com/).
+Quick access to your Smart Folders (Saved Searches) in [Alfred 3](http://www.alfredapp.com/).
 
 ![](img/screenshot-1.png "Alfred Smart Folders")
 
