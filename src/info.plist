@@ -81,68 +81,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>smartfolders</string>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Loading Your Custom Smart Folders…</string>
-				<key>script</key>
-				<string>python smartfolders.py --config "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>View/edit your custom keywords for Smart Folders</string>
-				<key>title</key>
-				<string>Custom Smart Folder Keywords</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>1D4776FB-3306-4255-882B-BF69AD95F853</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>acceptsmulti</key>
-				<false/>
-				<key>filetypes</key>
-				<array>
-					<string>com.apple.finder.smart-folder</string>
-				</array>
-				<key>name</key>
-				<string>Set Keyword For Smart Folder</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.action</string>
-			<key>uid</key>
-			<string>69F53DA5-6878-4653-8329-D55425DEE150</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -197,6 +135,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -214,9 +154,9 @@
 				<key>runningsubtext</key>
 				<string>Rummaging through your stuff …</string>
 				<key>script</key>
-				<string>python smartfolders.py "{query}"</string>
+				<string>/usr/bin/python smartfolders.py "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -255,6 +195,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -270,14 +212,14 @@
 				<key>runningsubtext</key>
 				<string>Loading your stuff ...</string>
 				<key>script</key>
-				<string># Use: python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "{query}" to
+				<string># Use: /usr/bin/python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
 # directly search a specific Smart Folder.
 # You can use the name of *any* Smart Folder on your system.
 # You only need the name, not the full path
 
-python smartfolders.py -f 'TODO' "{query}"</string>
+/usr/bin/python smartfolders.py -f 'TODO' "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -303,65 +245,51 @@ python smartfolders.py -f 'TODO' "{query}"</string>
 Please see the included help (keyword smartfolders-help) for more information.</string>
 	<key>uidata</key>
 	<dict>
-		<key>1D4776FB-3306-4255-882B-BF69AD95F853</key>
-		<dict>
-			<key>xpos</key>
-			<integer>300</integer>
-			<key>ypos</key>
-			<real>10</real>
-		</dict>
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<real>250</real>
+			<integer>210</integer>
 		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<real>370</real>
+			<integer>330</integer>
 		</dict>
 		<key>4E7199BF-6D20-4817-A7DC-675FDE745E2C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<real>130</real>
-		</dict>
-		<key>69F53DA5-6878-4653-8329-D55425DEE150</key>
-		<dict>
-			<key>xpos</key>
-			<integer>100</integer>
-			<key>ypos</key>
-			<real>10</real>
+			<integer>90</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<real>370</real>
+			<integer>330</integer>
 		</dict>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<real>250</real>
+			<integer>210</integer>
 		</dict>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<real>130</real>
+			<integer>90</integer>
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>2.0</string>
+	<string>2.1</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>
