@@ -1,12 +1,14 @@
 
-# Smart Folders for Alfred #
+Smart Folders for Alfred
+========================
 
 Quick access to your Smart Folders (Saved Searches) in [Alfred 3](http://www.alfredapp.com/).
 
 ![](img/screenshot-1.png "Alfred Smart Folders")
 
 
-## Usage ##
+Usage
+-----
 
 - `.sf [<query>]` to see or filter a list of your Smart Folders.
 	- `⇥` on a Smart Folder to view its contents.
@@ -17,14 +19,16 @@ Quick access to your Smart Folders (Saved Searches) in [Alfred 3](http://www.alf
 - `.sfhelp` to view the help file.
 
 
-## Custom searches ##
+Custom searches
+---------------
 
 You can also set up keywords to go directly to the contents of a specific Smart Folder.
 
 See the included help file for more details (keyword `.sfhelp` to view it).
 
 
-## Third-party software, copyright etc. ##
+Third-party software, copyright etc.
+------------------------------------
 
 This workflow relies upon the following libraries:
 

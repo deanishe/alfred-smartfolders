@@ -8,9 +8,20 @@
 # Created on 2014-05-25
 #
 
-"""Search Smart Folders."""
+"""cache.py [-f <folder>]
 
-from __future__ import print_function, unicode_literals
+Cache Smart Folders and their contents
+
+Usage:
+    cache.py --folder <DIR>
+    cache.py
+
+Options:
+    -f, --folder=<DIR>   Cache contents of specified folder
+
+"""
+
+from __future__ import print_function
 
 import sys
 import os
@@ -22,18 +33,6 @@ from time import time
 from docopt import docopt
 
 from workflow import Workflow
-
-
-__usage__ = """cache.py [-f|--folder=<folder>]
-
-Usage:
-    cache.py --folder <DIR>
-    cache.py
-
-Options:
-    -f, --folder=<DIR>   Cache contents of specified folder
-
-"""
 
 # Placeholder, replaced on run
 log = None
@@ -54,9 +53,10 @@ class Cache(object):
 
     def run(self, wf):
         """Run Cache."""
+        wf.args  # Check for magic arguments
         self.wf = wf
-        args = docopt(__usage__, wf.args)
-        folder_path = args.get('--folder')
+        args = docopt(__doc__)
+        folder_path = wf.decode(args.get('--folder') or '')
 
         if folder_path:  # Cache contents of Smart Folder
             wf.cache_data(cache_key(folder_path),
@@ -77,8 +77,7 @@ class Cache(object):
             params = plist['RawQueryDict']
             query = params['RawQuery']
             locations = params['SearchScopes']
-            log.debug('query : {}, locations : {}'.format(query,
-                                                          locations))
+            log.debug('query=%r, locations=%r', query, locations)
             command = ['mdfind']
             for path in locations:
                 if path == 'kMDQueryScopeHome':
@@ -90,11 +89,11 @@ class Cache(object):
                 command.extend(['-onlyin', path])
             command.append(query)
 
-        log.debug('command : {}'.format(command))
+        log.debug('command=%r', command)
         output = self.wf.decode(subprocess.check_output(command))
 
         files = [p.strip() for p in output.split('\n') if p.strip()]
-        log.debug("{} files in folder {!r}".format(len(files), folder_path))
+        log.debug('%d files in folder %r', len(files), folder_path)
         return files
 
     def smart_folders(self):

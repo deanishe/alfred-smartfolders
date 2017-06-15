@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>net.deanishe.alfred-smartfolders</string>
+	<string>net.deanishe.alfred-smartfolders-dev</string>
 	<key>category</key>
 	<string>Paths</string>
 	<key>connections</key>
@@ -135,6 +135,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -152,9 +154,9 @@
 				<key>runningsubtext</key>
 				<string>Rummaging through your stuff …</string>
 				<key>script</key>
-				<string>python smartfolders.py "{query}"</string>
+				<string>/usr/bin/python smartfolders.py "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -193,6 +195,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -208,14 +212,14 @@
 				<key>runningsubtext</key>
 				<string>Loading your stuff ...</string>
 				<key>script</key>
-				<string># Use: python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "{query}" to
+				<string># Use: /usr/bin/python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
 # directly search a specific Smart Folder.
 # You can use the name of *any* Smart Folder on your system.
 # You only need the name, not the full path
 
-python smartfolders.py -f 'TODO' "{query}"</string>
+/usr/bin/python smartfolders.py -f 'TODO' "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -244,48 +248,48 @@ Please see the included help (keyword smartfolders-help) for more information.</
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
 		<dict>
 			<key>xpos</key>
-			<integer>230</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<integer>150</integer>
+			<integer>210</integer>
 		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>230</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<integer>270</integer>
+			<integer>330</integer>
 		</dict>
 		<key>4E7199BF-6D20-4817-A7DC-675FDE745E2C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>230</integer>
+			<integer>370</integer>
 			<key>ypos</key>
-			<integer>30</integer>
+			<integer>90</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>30</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<integer>270</integer>
+			<integer>330</integer>
 		</dict>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<dict>
 			<key>xpos</key>
-			<integer>30</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<integer>150</integer>
+			<integer>210</integer>
 		</dict>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>30</integer>
+			<integer>50</integer>
 			<key>ypos</key>
-			<integer>30</integer>
+			<integer>90</integer>
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>2.0</string>
+	<string>2.1</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>
