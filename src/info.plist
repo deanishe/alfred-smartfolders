@@ -81,6 +81,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>.sfhelp</string>
+				<key>subtext</key>
+				<string>Open the help file in your web browser</string>
+				<key>text</key>
+				<string>View Smart Folders Help</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -102,27 +123,6 @@
 			<integer>2</integer>
 		</dict>
 		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>.sfhelp</string>
-				<key>subtext</key>
-				<string>Open the help file in your web browser</string>
-				<key>text</key>
-				<string>View Smart Folders Help</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
 			<key>type</key>
 			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
@@ -135,6 +135,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -178,23 +180,10 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
-				<string></string>
-				<key>sourcefile</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -238,6 +227,21 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Quick access to your Smart Folders (Saved Searches) in Alfred.
@@ -248,44 +252,44 @@ Please see the included help (keyword smartfolders-help) for more information.</
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
 		<dict>
 			<key>xpos</key>
-			<integer>370</integer>
+			<integer>360</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>170</integer>
 		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>370</integer>
+			<integer>360</integer>
 			<key>ypos</key>
-			<integer>330</integer>
+			<integer>320</integer>
 		</dict>
 		<key>4E7199BF-6D20-4817-A7DC-675FDE745E2C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>370</integer>
+			<integer>360</integer>
 			<key>ypos</key>
-			<integer>90</integer>
+			<integer>30</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>50</integer>
+			<integer>40</integer>
 			<key>ypos</key>
-			<integer>330</integer>
+			<integer>320</integer>
 		</dict>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<dict>
 			<key>xpos</key>
-			<integer>50</integer>
+			<integer>40</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>170</integer>
 		</dict>
 		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>50</integer>
+			<integer>40</integer>
 			<key>ypos</key>
-			<integer>90</integer>
+			<integer>30</integer>
 		</dict>
 	</dict>
 	<key>version</key>
