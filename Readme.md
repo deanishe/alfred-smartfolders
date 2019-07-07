@@ -2,9 +2,15 @@
 Smart Folders for Alfred
 ========================
 
-Quick access to your Smart Folders (Saved Searches) in [Alfred 3](http://www.alfredapp.com/).
+Quick access to your Smart Folders (Saved Searches) in [Alfred 3 or 4](http://www.alfredapp.com/).
 
 ![](img/screenshot-1.png "Alfred Smart Folders")
+
+
+Download & Installation
+-----------------------
+
+Download the workflow from [GitHub releases][gh-releases] and double-click the `.alfredworkflow` file to install.
 
 
 Usage
@@ -40,3 +46,4 @@ Both libraries and the code in the workflow are released under the [MIT licence]
 [aw]: http://www.deanishe.net/alfred-workflow/
 [mit]: http://opensource.org/licenses/MIT
 [docopt]: http://docopt.org/
+[gh-releases]: https://github.com/deanishe/alfred-smartfolders/releases/latest

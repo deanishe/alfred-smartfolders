@@ -34,12 +34,13 @@ import subprocess
 from docopt import docopt
 
 from workflow import (Workflow3, ICON_INFO, ICON_WARNING, ICON_ERROR,
-                      ICON_SETTINGS, ICON_SYNC)
+                      ICON_SYNC)
 from workflow.background import is_running, run_in_background
+from workflow.util import run_trigger
 from cache import cache_key
 
+ICON_LOADING = 'loading.png'
 
-DEFAULT_KEYWORD = '.sf'
 MAX_RESULTS = 100
 UPDATE_SETTINGS = {'github_slug': 'deanishe/alfred-smartfolders'}
 HELPFILE = os.path.join(os.path.dirname(__file__), 'Help.html')
@@ -51,20 +52,6 @@ CACHE_AGE_CONTENTS = 10  # seconds
 
 # Placeholder, replaced on run
 log = None
-
-ALFRED_SCRIPT = 'tell application "Alfred 3" to search "{}"'
-
-
-def _applescriptify(text):
-    """Replace double quotes in text."""
-    return text.replace('"', '" + quote + "')
-
-
-def run_alfred(query):
-    """Run Alfred with ``query`` via AppleScript."""
-    script = ALFRED_SCRIPT.format(_applescriptify(query))
-    log.debug('calling Alfred with : {!r}'.format(script))
-    return subprocess.call(['osascript', '-e', script])
 
 
 class Backup(Exception):
@@ -83,15 +70,13 @@ class SmartFolders(object):
         self.wf = None
         self.query = None
         self.folders = []
-        self.keyword = DEFAULT_KEYWORD
 
     def run(self, wf):
         """Run workflow."""
         self.wf = wf
         wf.args  # check for magic args
-        self.keyword = self.wf.settings.get('keyword', DEFAULT_KEYWORD)
         args = docopt(__doc__)
-        log.debug(u'args : %r', args)
+        log.debug(u'args=%r', args)
 
         # Open Help file
         if args.get('--helpfile'):
@@ -101,8 +86,8 @@ class SmartFolders(object):
         self.query = wf.decode(args.get('<query>') or '')
 
         # List Smart Folders with custom keywords
-        if args.get('--config'):
-            return self.do_configure_folders()
+        # if args.get('--config'):
+        #     return self.do_configure_folders()
 
         # Was a configured folder passed?
         folder = wf.decode(args.get('--folder') or '')
@@ -114,6 +99,7 @@ class SmartFolders(object):
 
         # Update folder list if it's old
         if not self.wf.cached_data_fresh('folders', CACHE_AGE_FOLDERS):
+            self.wf.rerun = 0.5
             log.debug('updating list of Smart Folders in background...')
             run_in_background('folders',
                               ['/usr/bin/python',
@@ -146,7 +132,7 @@ class SmartFolders(object):
         try:
             folder, query = self._parse_query(self.query)
         except Backup:
-            return run_alfred(self.keyword + ' ')
+            return run_trigger('search')
 
         if folder:  # search within folder
             self.query = query
@@ -202,7 +188,7 @@ class SmartFolders(object):
 
         else:
             return self._terminate_with_error(
-                u"Unknown folder '{}'".format(folder),
+                u'Unknown folder "{}"'.format(folder),
                 'Check your configuration with `smartfolders`')
 
         # Get contents of folder; update if necessary
@@ -212,11 +198,13 @@ class SmartFolders(object):
             files = []
 
         if not self.wf.cached_data_fresh(key, CACHE_AGE_CONTENTS):
+            self.wf.rerun = 0.5
             run_in_background(key,
                               ['/usr/bin/python',
                                self.wf.workflowfile('cache.py'),
                                '--folder', folder_path])
-        if is_running(key):
+        loading = is_running(key)
+        if loading:
             self.wf.rerun = 0.5
 
         if self.query:
@@ -226,7 +214,11 @@ class SmartFolders(object):
 
         if not files:
             if not self.query:
-                self._add_message('Empty Smart Folder', icon=ICON_WARNING)
+                if loading:
+                    self._add_message(u'Loading Folder Contents…',
+                                      icon=ICON_LOADING)
+                else:
+                    self._add_message('Empty Smart Folder', icon=ICON_WARNING)
             else:
                 self._add_message('No matching results',
                                   'Try a different query',

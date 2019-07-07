@@ -1,12 +1,7 @@
-title: Smart Folders for Alfred Help
-author: Dean Jackson <deanishe@deanishe.net>
-date: 2017-06-15
-
-
 Smart Folders for Alfred Help
 =============================
 
-Browse your Saved Searches in Alfred 3.
+Browse your Saved Searches in Alfred 3 or 4.
 
 ![](screenshot-1.png "Alfred Smart Folders")
 
@@ -41,9 +36,10 @@ The above example is included in the workflow, but has no keyword.
 Third-party software, copyright etc.
 ------------------------------------
 
-* All my code is covered by the [MIT licence](http://opensource.org/licenses/MIT).
-* [docopt](http://docopt.org/) is covered by the [MIT licence](http://opensource.org/licenses/MIT).
-* I don't know what licensing [alfred.py](https://github.com/nikipore/alfred-python) uses.
+- [Alfred-Workflow][aw], a library for building Alfred workflows.
+- [docopt][docopt], a library for parsing command-line options.
+
+Both libraries and the code in the workflow are released under the [MIT licence][mit].
 
 
 More Info
@@ -52,3 +48,8 @@ More Info
 Smart Folders for Alfred is hosted on [GitHub](https://github.com/deanishe/alfred-smartfolders).
 
 Feedback to <deanishe@deanishe.net>
+
+
+[aw]: http://www.deanishe.net/alfred-workflow/
+[mit]: http://opensource.org/licenses/MIT
+[docopt]: http://docopt.org/
