@@ -1,22 +1,3 @@
-Metadata-Version: 2.0
-Name: docopt
-Version: 0.6.2
-Summary: Pythonic argument parser, that will make you smile
-Home-page: http://docopt.org
-Author: Vladimir Keleshev
-Author-email: vladimir@keleshev.com
-License: MIT
-Keywords: option arguments parsing optparse argparse getopt
-Platform: UNKNOWN
-Classifier: Development Status :: 3 - Alpha
-Classifier: Topic :: Utilities
-Classifier: Programming Language :: Python :: 2.5
-Classifier: Programming Language :: Python :: 2.6
-Classifier: Programming Language :: Python :: 2.7
-Classifier: Programming Language :: Python :: 3.2
-Classifier: Programming Language :: Python :: 3.3
-Classifier: License :: OSI Approved :: MIT License
-
 ``docopt`` creates *beautiful* command-line interfaces
 ======================================================================
 

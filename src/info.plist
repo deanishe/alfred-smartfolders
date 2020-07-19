@@ -3,58 +3,25 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>net.deanishe.alfred-smartfolders-dev</string>
+	<string>net.deanishe.alfred-smartfolders</string>
 	<key>category</key>
 	<string>Paths</string>
 	<key>connections</key>
 	<dict>
-		<key>31E6855B-1EFC-4A25-AD06-94B53746610D</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
+				<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
 				<key>modifiers</key>
-				<integer>1048576</integer>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
-				<string>Reveal in Finder</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-				<key>modifiers</key>
-				<integer>1048576</integer>
-				<key>modifiersubtext</key>
-				<string>Reveal in Finder</string>
+				<string></string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
 		</array>
-		<key>955EF0C1-5C1D-4D5D-AC18-95780F8ABC52</key>
+		<key>A638C7EA-611B-4763-82A3-BAD1FA118C27</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -71,11 +38,26 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
 				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
 				<key>modifiers</key>
-				<integer>1048576</integer>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
-				<string>Reveal in Finder</string>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>D699A65D-FF6C-4105-B337-5BE62E05DF31</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -94,7 +76,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>4E7199BF-6D20-4817-A7DC-675FDE745E2C</string>
+				<string>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -103,6 +85,8 @@
 				<false/>
 			</dict>
 		</array>
+		<key>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</key>
+		<array/>
 	</dict>
 	<key>createdby</key>
 	<string>Dean Jackson</string>
@@ -121,6 +105,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -154,10 +140,48 @@
 				<key>withspace</key>
 				<true/>
 			</dict>
+			<key>inboundconfig</key>
+			<dict>
+				<key>externalid</key>
+				<string>search</string>
+				<key>inputmode</key>
+				<integer>1</integer>
+			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>hotstring</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>A638C7EA-611B-4763-82A3-BAD1FA118C27</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -169,9 +193,9 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>python smartfolders.py --helpfile</string>
+				<string>/usr/bin/open Help.html</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -180,30 +204,9 @@
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>4E7199BF-6D20-4817-A7DC-675FDE745E2C</string>
+			<string>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
-			<key>uid</key>
-			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>triggerid</key>
-				<string>search</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>955EF0C1-5C1D-4D5D-AC18-95780F8ABC52</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -229,17 +232,15 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
-				<string></string>
-				<key>sourcefile</key>
+				<key>path</key>
 				<string></string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
+			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
-			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -248,6 +249,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -289,59 +292,52 @@
 			<key>uid</key>
 			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>keyword</key>
-				<string>todo</string>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Loading your stuff ...</string>
-				<key>script</key>
-				<string># Use: /usr/bin/python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
-# directly search a specific Smart Folder.
-# You can use the name of *any* Smart Folder on your system.
-# You only need the name, not the full path
-
-/usr/bin/python smartfolders.py -f 'TODO' "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Files &amp; folders tagged “todo”</string>
-				<key>title</key>
-				<string>TODO</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:reveal}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>1</integer>
+						<key>matchstring</key>
+						<string></string>
+						<key>outputlabel</key>
+						<string>Reveal</string>
+						<key>uid</key>
+						<string>D699A65D-FF6C-4105-B337-5BE62E05DF31</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>Open</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.utility.conditional</string>
 			<key>uid</key>
-			<string>31E6855B-1EFC-4A25-AD06-94B53746610D</string>
+			<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -350,33 +346,19 @@
 Please see the included help (keyword .sfhelp) for more information.</string>
 	<key>uidata</key>
 	<dict>
-		<key>31E6855B-1EFC-4A25-AD06-94B53746610D</key>
-		<dict>
-			<key>xpos</key>
-			<integer>250</integer>
-			<key>ypos</key>
-			<integer>340</integer>
-		</dict>
 		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
 		<dict>
 			<key>xpos</key>
-			<integer>570</integer>
+			<integer>595</integer>
 			<key>ypos</key>
-			<integer>50</integer>
+			<integer>110</integer>
 		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>570</integer>
+			<integer>595</integer>
 			<key>ypos</key>
-			<integer>200</integer>
-		</dict>
-		<key>4E7199BF-6D20-4817-A7DC-675FDE745E2C</key>
-		<dict>
-			<key>xpos</key>
-			<integer>940</integer>
-			<key>ypos</key>
-			<integer>50</integer>
+			<integer>260</integer>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
@@ -385,10 +367,10 @@ Please see the included help (keyword .sfhelp) for more information.</string>
 			<key>ypos</key>
 			<integer>200</integer>
 		</dict>
-		<key>955EF0C1-5C1D-4D5D-AC18-95780F8ABC52</key>
+		<key>A638C7EA-611B-4763-82A3-BAD1FA118C27</key>
 		<dict>
 			<key>xpos</key>
-			<integer>60</integer>
+			<integer>40</integer>
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
@@ -399,16 +381,32 @@ Please see the included help (keyword .sfhelp) for more information.</string>
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
-		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
+		<key>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</key>
 		<dict>
 			<key>xpos</key>
-			<integer>750</integer>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>220</integer>
+		</dict>
+		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
+		<dict>
+			<key>note</key>
+			<string>Open help file</string>
+			<key>xpos</key>
+			<integer>755</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+		<key>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</key>
+		<dict>
+			<key>xpos</key>
+			<integer>925</integer>
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>2.2</string>
+	<string>3.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/deanishe/alfred-smartfolders</string>
 </dict>

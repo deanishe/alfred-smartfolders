@@ -1,7 +1,7 @@
-Smart Folders for Alfred Help
-=============================
+Smart Folders for Alfred
+========================
 
-Browse your Saved Searches in Alfred 3 or 4.
+Browse your Saved Searches in Alfred 4+.
 
 ![](screenshot-1.png "Alfred Smart Folders")
 
@@ -9,13 +9,14 @@ Browse your Saved Searches in Alfred 3 or 4.
 Usage
 -----
 
-- `.sf [<query>]` to see or filter a list of your Smart Folders.
-    - `⇥` on a Smart Folder to view/search its contents.
-    - `↩` to open the Smart Folder in Finder.
+- `.sf [<query>]` to see or filter a list of your Smart Folders
+    - `⇥` on a Smart Folder to view its contents
+    - `↩` to open the Smart Folder in Finder
+    - `⌘↩` to reveal the Smart Folder in Finder
 - On Smart Folder contents:
-    - `↩` will open a file/folder in its default app.
-    - `⌘+↩` will reveal the item in the Finder.
-- `.sfhelp` to view the help file.
+    - `↩` to open a file/folder in its default app
+    - `⌘+↩` to reveal the item in the Finder
+- `.sfhelp` to view this help file
 
 
 ### Custom searches ###
