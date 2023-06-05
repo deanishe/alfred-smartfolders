@@ -38,8 +38,7 @@ FOLDER_LIST = CACHE / 'folders.txt'
 ICON_ERROR = {'path': 'error.png'}
 ICON_WARNING = {'path': 'warning.png'}
 ICON_INFO = {'path': 'info.png'}
-ICON_LOADING = {'path': 'loading.png'}
-ICON_SYNC = {'path': 'sync.png'}
+ICON_RELOAD = {'path': 'reload.png'}
 
 
 def shortpath(p: Union[Path, str]) -> str:
@@ -315,7 +314,7 @@ def _workflow_actions(query: str) -> list[dict]:
             'subtitle': 'Reload list of smart folders',
             'arg': ['action', 'reload'],
             'uid': 'reload',
-            'icon': ICON_LOADING,
+            'icon': ICON_RELOAD,
         })
 
     if 'help'.startswith(query):

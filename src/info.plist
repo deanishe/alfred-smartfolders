@@ -47,19 +47,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>AC58D6B6-6633-41F9-941E-579F29E55D24</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</key>
 		<array>
 			<dict>
@@ -187,21 +174,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<true/>
-				<key>triggerid</key>
-				<string>reload</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>9459D35C-F547-47BD-A653-DD13B720AAE9</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -246,54 +218,32 @@ python3 smartfolders.py $args</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>127</integer>
-				<key>queuedelaycustom</key>
-				<integer>1</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Loading your stuff ...</string>
-				<key>script</key>
-				<string># Use: ./smartfolders.py search -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
-# directly search a specific Smart Folder.
-# You can use the name of *any* Smart Folder on your system.
-# You only need the name, not the full path
-
-./smartfolders.py -f 'TODO' "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>Example search of specific Saved Search</string>
-				<key>type</key>
-				<integer>5</integer>
-				<key>withspace</key>
+				<key>availableviaurlhandler</key>
 				<true/>
+				<key>triggerid</key>
+				<string>reload</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.trigger.external</string>
 			<key>uid</key>
-			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
+			<string>9459D35C-F547-47BD-A653-DD13B720AAE9</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>availableviaurlhandler</key>
+				<true/>
+				<key>triggerid</key>
+				<string>search</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -316,7 +266,7 @@ if [[ $# -eq 2 ]] &amp;&amp; [[ "$1" == "action" ]]; then
 			exit 0
 			;;
 		help)
-			/usr/bin/open Help.html
+			/usr/bin/open "$( /usr/libexec/PlistBuddy -c 'Print :webaddress' info.plist )"
 			exit 0
 			;;
        	  \?) echo "invalid action: $2" &gt;&amp;2; exit 1;;
@@ -347,21 +297,6 @@ fi
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<true/>
-				<key>triggerid</key>
-				<string>search</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -374,8 +309,6 @@ fi
 				<integer>1</integer>
 				<key>escaping</key>
 				<integer>127</integer>
-				<key>keyword</key>
-				<string>.dl</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -387,12 +320,15 @@ fi
 				<key>runningsubtext</key>
 				<string>Loading your stuff ...</string>
 				<key>script</key>
-				<string># Use: ./smartfolders.py search -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
-# directly search a specific Smart Folder.
+				<string># Search contents of specific Smart Folder with:
+#
+#    ./smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "$1"
+#
 # You can use the name of *any* Smart Folder on your system.
 # You only need the name, not the full path
 
-./smartfolders.py -f 'Downloaded Movies' "$1"</string>
+# search in Smart Folder called "TODO"
+./smartfolders.py -f 'TODO' "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -400,7 +336,7 @@ fi
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string>Downloaded Movies</string>
+				<string>Example search of specific Saved Search</string>
 				<key>type</key>
 				<integer>5</integer>
 				<key>withspace</key>
@@ -409,15 +345,33 @@ fi
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>AC58D6B6-6633-41F9-941E-579F29E55D24</string>
+			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Quick access to your Smart Folders (Saved Searches) in Alfred.
+	<string>## Usage
 
-Please see the included help (keyword .sfhelp) for more information.</string>
+-   `.sf [&lt;query&gt;]` to see or filter a list of your Smart Folders
+    -   `⇥` on a Smart Folder to view its contents
+    -   `↩` to open the Smart Folder in Finder
+        -   `⌘↩` to reveal the Smart Folder in Finder
+-   On Smart Folder contents:
+    -   `↩` to open a file/folder in its default app
+    -   `⌘+↩` to reveal the item in the Finder
+-   `.sf reload` to refresh list of Smart Folders
+-   `.sf help` to view the help
+
+## Custom searches
+
+You can also set up keywords to go directly to the contents of a specific Smart Folder. To do this, copy the default `.sf` Script Filter and use the `-f` option to specify the name of your Smart Folder:
+
+    ./smartfolders.py -f 'FOLDER_NAME' "$1"
+
+where `FOLDER_NAME` is the name of the Saved Search whose contents you want to search.
+
+There is an example Script Filter included in the workflow (marked red) to search a Smart Folder called "TODO".</string>
 	<key>uidata</key>
 	<dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
@@ -430,7 +384,9 @@ Please see the included help (keyword .sfhelp) for more information.</string>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>colorindex</key>
-			<integer>10</integer>
+			<integer>1</integer>
+			<key>note</key>
+			<string>Search specific folder</string>
 			<key>xpos</key>
 			<real>250</real>
 			<key>ypos</key>
@@ -451,13 +407,6 @@ Please see the included help (keyword .sfhelp) for more information.</string>
 			<real>40</real>
 			<key>ypos</key>
 			<real>50</real>
-		</dict>
-		<key>AC58D6B6-6633-41F9-941E-579F29E55D24</key>
-		<dict>
-			<key>xpos</key>
-			<real>250</real>
-			<key>ypos</key>
-			<real>350</real>
 		</dict>
 		<key>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</key>
 		<dict>
@@ -483,8 +432,10 @@ Please see the included help (keyword .sfhelp) for more information.</string>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>3.0</string>
+	<string>4.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/deanishe/alfred-smartfolders</string>
 </dict>

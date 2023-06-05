@@ -1,53 +1,38 @@
-
-Smart Folders for Alfred
-========================
+# Smart Folders for Alfred
 
 Quick access to your Smart Folders (Saved Searches) in [Alfred](http://www.alfredapp.com/).
 
-![](img/screenshot-1.png "Alfred Smart Folders")
+![](screenshot.png "Alfred Smart Folders")
 
-
-Download & Installation
------------------------
-
-**NOTE:** Version 3 and later are only compatible with Alfred 4+. If you're still using Alfred 3, download [v2.2][v2.2].
+## Download & Installation
 
 Download the workflow from [GitHub releases][gh-releases] and double-click the `.alfredworkflow` file to install.
 
+## Usage
 
-Usage
------
+-   `.sf [<query>]` to see or filter a list of your Smart Folders
+    -   `⇥` on a Smart Folder to view its contents
+    -   `↩` to open the Smart Folder in Finder
+        -   `⌘↩` to reveal the Smart Folder in Finder
+-   On Smart Folder contents:
+    -   `↩` to open a file/folder in its default app
+    -   `⌘+↩` to reveal the item in the Finder
+-   `.sf reload` to refresh list of Smart Folders
+-   `.sf help` to view the help file
 
-- `.sf [<query>]` to see or filter a list of your Smart Folders
-	- `⇥` on a Smart Folder to view its contents
-	- `↩` to open the Smart Folder in Finder
-    - `⌘↩` to reveal the Smart Folder in Finder
-- On Smart Folder contents:
-	- `↩` to open a file/folder in its default app
-	- `⌘+↩` to reveal the item in the Finder
-- `.sfhelp` to view the help file
+## Custom searches
 
+You can also set up keywords to go directly to the contents of a specific Smart Folder. To do this, copy the default `.sf` Script Filter and use the `-f` option to specify the name of your Smart Folder:
 
-Custom searches
----------------
+    ./smartfolders.py -f 'FOLDER_NAME' "$1"
 
-You can also set up keywords to go directly to the contents of a specific Smart Folder.
+where `FOLDER_NAME` is the name of the Saved Search whose contents you want to search.
 
-See the included help file for more details (keyword `.sfhelp` to view it).
+There is an example Script Filter included in the workflow (marked red) to search a Smart Folder called "TODO".
 
+## Third-party software, copyright etc.
 
-Third-party software, copyright etc.
-------------------------------------
+The code in this workflow is released under the [MIT licence][mit].
 
-This workflow relies upon the following libraries:
-
-- [Alfred-Workflow][aw], a library for building Alfred workflows.
-- [docopt][docopt], a library for parsing command-line options.
-
-Both libraries and the code in the workflow are released under the [MIT licence][mit]
-
-[aw]: http://www.deanishe.net/alfred-workflow/
 [mit]: http://opensource.org/licenses/MIT
-[docopt]: http://docopt.org/
 [gh-releases]: https://github.com/deanishe/alfred-smartfolders/releases/latest
-[v2.2]: https://github.com/deanishe/alfred-smartfolders/releases/tag/v2.2.0

@@ -1,13 +1,13 @@
 {
   "alfredworkflow" : {
     "category" : "Paths",
-    "readme" : "Quick access to your Smart Folders (Saved Searches) in Alfred.\n\nPlease see the included help (keyword .sfhelp) for more information.",
+    "readme" : "Quick access to your Smart Folders (Saved Searches) in Alfred.\n\nPlease see the included help (keyword .sf help) for more information.",
     "createdby" : "Dean Jackson",
-    "downloadurl" : "https://github.com/deanishe/alfred-smartfolders/releases/download/v2.2.0/Smart-Folders-2.2.alfredworkflow",
-    "version" : "2.2",
-    "bundleid" : "net.deanishe.alfred-smartfolders-dev",
+       "downloadurl" : "https://github.com/deanishe/alfred-smartfolders/raw/v4.0.0/Smart-Folders-4.0.alfredworkflow",
+    "version" : "4.0",
+    "bundleid" : "net.deanishe.alfred-smartfolders",
     "description" : "Browse Smart Folder in Alfred",
     "name" : "Smart Folders",
-    "webaddress" : "https://github.com/deanishe/alfred-smartfolders"
+    "webaddress" : "https:\/\/github.com\/deanishe\/alfred-smartfolders"
   }
 }
