@@ -12,7 +12,20 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
+				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9459D35C-F547-47BD-A653-DD13B720AAE9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B7C5A929-40FB-4DD6-9CFF-F6088EDD67FD</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -34,33 +47,8 @@
 				<false/>
 			</dict>
 		</array>
-		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
+		<key>AC58D6B6-6633-41F9-941E-579F29E55D24</key>
 		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>D699A65D-FF6C-4105-B337-5BE62E05DF31</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 			<dict>
 				<key>destinationuid</key>
 				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
@@ -72,11 +60,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
+		<key>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</string>
+				<string>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -85,8 +73,19 @@
 				<false/>
 			</dict>
 		</array>
-		<key>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</key>
-		<array/>
+		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Dean Jackson</string>
@@ -126,24 +125,24 @@
 				<key>runningsubtext</key>
 				<string>Rummaging through your stuff …</string>
 				<key>script</key>
-				<string>/usr/bin/python smartfolders.py "$1"</string>
+				<string>./smartfolders.py "$@"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string>Search for and Browse Smart Folders</string>
 				<key>title</key>
 				<string>Smart Folders</string>
 				<key>type</key>
-				<integer>0</integer>
+				<integer>5</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>inboundconfig</key>
 			<dict>
-				<key>externalid</key>
-				<string>search</string>
 				<key>inputmode</key>
 				<integer>1</integer>
 			</dict>
@@ -188,59 +187,61 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<true/>
+				<key>triggerid</key>
+				<string>reload</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>9459D35C-F547-47BD-A653-DD13B720AAE9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>/usr/bin/open Help.html</string>
+				<string>echo 🍺 &gt;&amp;2
+
+set -e
+
+folder="$1"
+out="${alfred_workflow_cache}/folders.txt"
+lock="${alfred_workflow_cache}/reload.lock"
+
+if [[ -f "$lock" ]]; then
+	echo "reload already running" &gt;&amp;2
+	exit 0
+fi
+
+# ensure lockfile is deleted after run
+TRAPEXIT() { rm -vf "$lock" "$tmp" &gt;&amp;2 }
+
+args=(--cache)
+if [[ -n "$folder" ]]; then
+	args+=(--folder "$folder")
+fi
+
+python3 smartfolders.py $args</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
-				<integer>0</integer>
+				<integer>5</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</string>
+			<string>B7C5A929-40FB-4DD6-9CFF-F6088EDD67FD</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>.sfhelp</string>
-				<key>subtext</key>
-				<string>Open the help file in your web browser</string>
-				<key>text</key>
-				<string>View Smart Folders Help</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>path</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
-			<key>uid</key>
-			<string>407F35C3-A59A-4D90-9372-85B5AB6AB038</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -268,12 +269,12 @@
 				<key>runningsubtext</key>
 				<string>Loading your stuff ...</string>
 				<key>script</key>
-				<string># Use: /usr/bin/python smartfolders.py -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
+				<string># Use: ./smartfolders.py search -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
 # directly search a specific Smart Folder.
 # You can use the name of *any* Smart Folder on your system.
 # You only need the name, not the full path
 
-/usr/bin/python smartfolders.py -f 'TODO' "$1"</string>
+./smartfolders.py -f 'TODO' "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -283,7 +284,7 @@
 				<key>title</key>
 				<string>Example search of specific Saved Search</string>
 				<key>type</key>
-				<integer>0</integer>
+				<integer>5</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -297,45 +298,118 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>conditions</key>
-				<array>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:reveal}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>1</integer>
-						<key>matchstring</key>
-						<string></string>
-						<key>outputlabel</key>
-						<string>Reveal</string>
-						<key>uid</key>
-						<string>D699A65D-FF6C-4105-B337-5BE62E05DF31</string>
-					</dict>
-				</array>
-				<key>elselabel</key>
-				<string>Open</string>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>set -e
+
+echo "🍺" &gt;&amp;2
+
+if [[ $# -eq 2 ]] &amp;&amp; [[ "$1" == "action" ]]; then
+	action="$2"
+	case "$2" in
+        reload)
+			/usr/bin/open alfred://runtrigger/net.deanishe.alfred-smartfolders/reload/
+			/usr/bin/open alfred://runtrigger/net.deanishe.alfred-smartfolders/search/
+			exit 0
+			;;
+		help)
+			/usr/bin/open Help.html
+			exit 0
+			;;
+       	  \?) echo "invalid action: $2" &gt;&amp;2; exit 1;;
+	esac
+	exit 0
+fi
+
+if [[ -e "$1" ]]; then
+	/usr/bin/open "$1"
+	exit 0
+fi
+
+./smartfolders.py $@</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.conditional</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</string>
+			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>availableviaurlhandler</key>
+				<true/>
+				<key>triggerid</key>
+				<string>search</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>.dl</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading your stuff ...</string>
+				<key>script</key>
+				<string># Use: ./smartfolders.py search -f 'NAME_OF_YOUR_SMART_FOLDER' "$1" to
+# directly search a specific Smart Folder.
+# You can use the name of *any* Smart Folder on your system.
+# You only need the name, not the full path
+
+./smartfolders.py -f 'Downloaded Movies' "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
 				<string></string>
-				<key>sourcefile</key>
+				<key>subtext</key>
 				<string></string>
+				<key>title</key>
+				<string>Downloaded Movies</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</string>
+			<string>AC58D6B6-6633-41F9-941E-579F29E55D24</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -346,65 +420,69 @@
 Please see the included help (keyword .sfhelp) for more information.</string>
 	<key>uidata</key>
 	<dict>
-		<key>407F35C3-A59A-4D90-9372-85B5AB6AB038</key>
-		<dict>
-			<key>xpos</key>
-			<integer>595</integer>
-			<key>ypos</key>
-			<integer>110</integer>
-		</dict>
 		<key>47F1A79A-3474-47DB-85EC-3F8331A9D8C1</key>
 		<dict>
 			<key>xpos</key>
-			<integer>595</integer>
+			<real>570</real>
 			<key>ypos</key>
-			<integer>260</integer>
+			<real>200</real>
 		</dict>
 		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>10</integer>
 			<key>xpos</key>
-			<integer>250</integer>
+			<real>250</real>
 			<key>ypos</key>
-			<integer>200</integer>
+			<real>200</real>
+		</dict>
+		<key>9459D35C-F547-47BD-A653-DD13B720AAE9</key>
+		<dict>
+			<key>xpos</key>
+			<real>570</real>
+			<key>ypos</key>
+			<real>50</real>
 		</dict>
 		<key>A638C7EA-611B-4763-82A3-BAD1FA118C27</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>10</integer>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40</real>
 			<key>ypos</key>
-			<integer>50</integer>
+			<real>50</real>
+		</dict>
+		<key>AC58D6B6-6633-41F9-941E-579F29E55D24</key>
+		<dict>
+			<key>xpos</key>
+			<real>250</real>
+			<key>ypos</key>
+			<real>350</real>
+		</dict>
+		<key>B49876CB-97E0-4C3A-A840-1FAEF0654ECB</key>
+		<dict>
+			<key>xpos</key>
+			<real>40</real>
+			<key>ypos</key>
+			<real>200</real>
+		</dict>
+		<key>B7C5A929-40FB-4DD6-9CFF-F6088EDD67FD</key>
+		<dict>
+			<key>xpos</key>
+			<real>740</real>
+			<key>ypos</key>
+			<real>50</real>
 		</dict>
 		<key>DB4EC501-2923-46A3-9A9E-8DC666CBCD18</key>
 		<dict>
 			<key>xpos</key>
-			<integer>250</integer>
+			<real>250</real>
 			<key>ypos</key>
-			<integer>50</integer>
-		</dict>
-		<key>DDFBFD9D-D373-462C-8BAD-A6CBB640D500</key>
-		<dict>
-			<key>xpos</key>
-			<integer>470</integer>
-			<key>ypos</key>
-			<integer>220</integer>
-		</dict>
-		<key>F56D3C7A-0576-4EC1-84DB-BDDA11BAB5E2</key>
-		<dict>
-			<key>note</key>
-			<string>Open help file</string>
-			<key>xpos</key>
-			<integer>755</integer>
-			<key>ypos</key>
-			<integer>50</integer>
-		</dict>
-		<key>FB1F4E50-6A3D-44EC-9CCD-CA1ED4DF81C9</key>
-		<dict>
-			<key>xpos</key>
-			<integer>925</integer>
-			<key>ypos</key>
-			<integer>50</integer>
+			<real>50</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>version</key>
 	<string>3.0</string>
 	<key>webaddress</key>
